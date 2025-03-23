@@ -1,26 +1,24 @@
 // src/components/ProductManager.tsx
-import React, { useState, useEffect } from 'react';
-import products from '../api/products';
+import React, { useState } from 'react';
 import {ProductCategory} from '../models/ProductCategory';
 import CategoryFilter from './CategoryFilter';
 import ProductList from './ProductList';
+import products from '../api/products';
 import Product from '../models/Product';
+import '../styles/styles.css';
 
 const ProductManager: React.FC = () => {
-  const [productList, setProductList] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [filterInStock, setFilterInStock] = useState<boolean>(false); // Estado para el checkbox
-
-  // Simula la carga de productos desde una API
-  useEffect(() => {
-    setTimeout(() => {
-      setProductList(products);
-      setFilteredProducts(products);
-    }, 1000);
-  }, []);
+  const [productList, setProductList] = useState<Product[]>(products);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  const [filterInStock, setFilterInStock] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>(
+    ProductCategory.ALL,
+  );
 
   // Maneja el filtrado por categoría y stock
   const handleSelectCategory = (category: ProductCategory) => {
+    setSelectedCategory(category); // Actualiza la categoría seleccionada
+
     let filtered = productList;
 
     // Filtra por categoría
@@ -43,6 +41,13 @@ const ProductManager: React.FC = () => {
 
     let filtered = productList;
 
+    // Filtra por categoría
+    if (selectedCategory !== ProductCategory.ALL) {
+      filtered = filtered.filter(
+        (product) => product.category === selectedCategory,
+      );
+    }
+
     // Filtra por stock si el checkbox está activado
     if (newFilterInStock) {
       filtered = filtered.filter((product) => product.stock > 0);
@@ -52,19 +57,19 @@ const ProductManager: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="product-manager">
       <h1>Listado de Productos</h1>
-      <div>
-        <label>
+      <div className="filters">
+        <div className="filter-in-stock">
           <input
             type="checkbox"
             checked={filterInStock}
             onChange={handleToggleInStock}
           />
-          Mostrar solo productos con stock
-        </label>
+          <label>Mostrar solo productos con stock</label>
+        </div>
+        <CategoryFilter onSelectCategory={handleSelectCategory} />
       </div>
-      <CategoryFilter onSelectCategory={handleSelectCategory} />
       <ProductList products={filteredProducts} />
     </div>
   );

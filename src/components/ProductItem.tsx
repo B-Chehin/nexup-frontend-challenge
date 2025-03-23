@@ -9,20 +9,18 @@ interface ProductItemProps {
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   return (
-    <div>
+    <div className="product-item">
       <div
-        style={{
-          backgroundColor:
-            product.status === ProductStatus.Active ? 'green' : 'red',
-          width: '10px',
-          height: '10px',
-          borderRadius: '50%',
-        }}
+        className={`status-indicator ${
+          product.status === ProductStatus.Active ? 'status-active' : 'status-inactive'
+        }`}
       />
-      <h3>{product.name}</h3>
-      <p>{product.category}</p>
-      <p>{product.getFormattedPrice()}</p>
-      <p>Stock: {product.stock}</p>
+      <div className="product-details">
+        <h3>{product.name}</h3>
+        <p>{product.category}</p>
+        <p className="product-price">${product.price.toFixed(2)}</p>
+        <p className="product-stock">Stock: {product.stock}</p>
+      </div>
     </div>
   );
 };
