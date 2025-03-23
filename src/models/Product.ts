@@ -32,7 +32,7 @@ class Product {
 
   // Método para verificar si el producto está activo
   isActive() {
-    return this.status === ProductStatus.ACTIVE;
+    return this.status === ProductStatus.Active;
   }
 
   // Método para verificar si el producto está en stock
