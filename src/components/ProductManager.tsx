@@ -9,6 +9,7 @@ import Product from '../models/Product';
 const ProductManager: React.FC = () => {
   const [productList, setProductList] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [filterInStock, setFilterInStock] = useState<boolean>(false); // Estado para el checkbox
 
   // Simula la carga de productos desde una API
   useEffect(() => {
@@ -18,21 +19,51 @@ const ProductManager: React.FC = () => {
     }, 1000);
   }, []);
 
-  // Maneja el filtrado por categoría
+  // Maneja el filtrado por categoría y stock
   const handleSelectCategory = (category: ProductCategory) => {
-    if (category === ProductCategory.ALL) {
-      setFilteredProducts(productList);
-    } else {
-      const filtered = productList.filter(
-        (product) => product.category === category,
-      );
-      setFilteredProducts(filtered);
+    let filtered = productList;
+
+    // Filtra por categoría
+    if (category !== ProductCategory.ALL) {
+      filtered = filtered.filter((product) => product.category === category);
     }
+
+    // Filtra por stock si el checkbox está activado
+    if (filterInStock) {
+      filtered = filtered.filter((product) => product.stock > 0);
+    }
+
+    setFilteredProducts(filtered);
+  };
+
+  // Maneja el cambio en el checkbox de "Mostrar solo con stock"
+  const handleToggleInStock = () => {
+    const newFilterInStock = !filterInStock;
+    setFilterInStock(newFilterInStock);
+
+    let filtered = productList;
+
+    // Filtra por stock si el checkbox está activado
+    if (newFilterInStock) {
+      filtered = filtered.filter((product) => product.stock > 0);
+    }
+
+    setFilteredProducts(filtered);
   };
 
   return (
     <div>
       <h1>Listado de Productos</h1>
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={filterInStock}
+            onChange={handleToggleInStock}
+          />
+          Mostrar solo productos con stock
+        </label>
+      </div>
       <CategoryFilter onSelectCategory={handleSelectCategory} />
       <ProductList products={filteredProducts} />
     </div>
