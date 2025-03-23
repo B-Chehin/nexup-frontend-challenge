@@ -1,6 +1,7 @@
-import React from "react";
-import Product from "../models/Product";
-import ProductItem from "./ProductItem";
+// src/components/ProductList.tsx
+import React from 'react';
+import Product from '../models/Product';
+import ProductItem from './ProductItem';
 
 interface ProductListProps {
   products: Product[];

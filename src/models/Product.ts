@@ -1,5 +1,6 @@
-import { ProductStatus } from './ProductStatus';
+// src/models/Product.ts
 import { ProductCategory } from './ProductCategory';
+import { ProductStatus } from './ProductStatus';
 
 class Product {
   id: number;
@@ -15,7 +16,7 @@ class Product {
     category: ProductCategory,
     price: number,
     status: ProductStatus,
-    stock: number = 0
+    stock: number = 0,
   ) {
     this.id = id;
     this.name = name;
@@ -24,23 +25,22 @@ class Product {
     this.status = status;
     this.stock = stock;
   }
-  
+
   // Método para formatear el precio
-  getFormattedPrice() {
+  getFormattedPrice(): string {
     return `$${this.price.toFixed(2)}`;
   }
 
   // Método para verificar si el producto está activo
-  isActive() {
+  isActive(): boolean {
     return this.status === ProductStatus.Active;
   }
 
   // Método para verificar si el producto está en stock
-  isInStock() {
+  isInStock(): boolean {
     return this.stock > 0;
   }
 }
-
 
 export default Product;
 

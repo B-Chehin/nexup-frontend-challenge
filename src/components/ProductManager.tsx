@@ -1,9 +1,10 @@
 // src/components/ProductManager.tsx
 import React, { useState, useEffect } from 'react';
-import products from '../data/data';
-import ProductCategory from '../models/ProductCategory';
+import products from '../api/products';
+import {ProductCategory} from '../models/ProductCategory';
 import CategoryFilter from './CategoryFilter';
 import ProductList from './ProductList';
+import Product from '../models/Product';
 
 const ProductManager: React.FC = () => {
   const [productList, setProductList] = useState<Product[]>([]);
