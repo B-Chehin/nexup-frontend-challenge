@@ -56,8 +56,8 @@ h1 {
 /* Lista de productos */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-  gap: 20px; /* Espacio entre tarjetas */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; 
 }
 
 /* Tarjeta de producto */
@@ -116,4 +116,61 @@ h1 {
 .product-stock {
   font-style: italic;
   color: #888;
+}
+
+/* Estilos para el combobox (selector de categoría) */
+.category-filter {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+}
+
+/* Estilo cuando el combobox está enfocado */
+.category-filter:focus {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); 
+}
+
+/* Estilo cuando se pasa el mouse sobre el combobox */
+.category-filter:hover {
+  border-color: #999;
+}
+
+/* Flecha personalizada para el combobox */
+.category-filter-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.category-filter-wrapper::after {
+  content: '▼';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
+  font-size: 12px;
+}
+
+/* Estilo para las opciones del combobox */
+.category-filter option {
+  padding: 8px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Estilo para las opciones al pasar el mouse */
+.category-filter option:hover {
+  background-color: #f0f0f0;
 }
