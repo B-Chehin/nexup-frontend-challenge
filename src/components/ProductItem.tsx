@@ -1,4 +1,3 @@
-// src/components/ProductItem.tsx
 import React from 'react';
 import { ProductStatus } from '../models/ProductStatus';
 import Product from '../models/Product';

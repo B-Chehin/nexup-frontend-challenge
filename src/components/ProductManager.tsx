@@ -1,4 +1,3 @@
-// src/components/ProductManager.tsx
 import React, { useState } from 'react';
 import {ProductCategory} from '../models/ProductCategory';
 import CategoryFilter from './CategoryFilter';
